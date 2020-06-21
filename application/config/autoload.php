@@ -143,5 +143,6 @@ $autoload['model'] = array(
     'model_pencarian',
     'model_user',
     'model_admin',
-    'model_kelola'
+    'model_kelola',
+    'model_pesanan'
 );

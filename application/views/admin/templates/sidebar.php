@@ -71,21 +71,21 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="<?php echo base_url('admin/pesanan/invoice') ?>">
+        <a class="nav-link collapsed" href="<?php echo base_url('admin/pesanan/belum_dibayar') ?>">
           <i class="fas fa-fw fa-file-invoice-dollar"></i>
           <span>Belum Dibayar</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="<?php echo base_url('admin/pesanan/pengemasan') ?>">
+        <a class="nav-link collapsed" href="<?php echo base_url('admin/pesanan/harus_dikemas') ?>">
           <i class="fas fa-fw fa-dolly-flatbed"></i>
           <span>Harus Dikemas</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="<?php echo base_url('admin/pesanan/pengiriman') ?>">
+        <a class="nav-link collapsed" href="<?php echo base_url('admin/pesanan/dalam_pengiriman') ?>">
           <i class="fas fa-fw fa-truck"></i>
           <span>Dalam Pengiriman</span>
         </a>
@@ -122,21 +122,6 @@
           <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars text-dark"></i>
           </button>
-
-          <!-- Topbar Search -->
-          <?php echo form_open('pencarian') ?>
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group ">
-              <input type="text" name="keyword" class="form-control bg-light border-0 small border-left-dark" placeholder="Cari sesuatu.." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-dark" type="submit">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-          <?php echo form_close() ?>
-
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
 
@@ -168,11 +153,6 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                  <a class="dropdown-item" href="<?php echo site_url('admin/dashboard/detail_user') ?>">
-                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Profil Saya
-                  </a>
-                  <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="<?php echo site_url('auth/logout') ?>">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                     Logout
