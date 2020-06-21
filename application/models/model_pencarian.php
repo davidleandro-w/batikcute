@@ -7,11 +7,17 @@ class Model_pencarian extends CI_model
         $this->db->select('*');
         $this->db->from('tb_barang');
         $this->db->like('nama_brg', $keyword);
+        $this->db->where('stok > 0');
         $this->db->or_like('keterangan', $keyword);
+        $this->db->where('stok > 0');
         $this->db->or_like('kategori', $keyword);
+        $this->db->where('stok > 0');
         $this->db->or_like('jenis', $keyword);
+        $this->db->where('stok > 0');
         $this->db->or_like('ukuran', $keyword);
+        $this->db->where('stok > 0');
         $this->db->or_like('harga', $keyword);
+        $this->db->where('stok > 0');
         return $this->db->get()->result();
     }
 
@@ -20,6 +26,7 @@ class Model_pencarian extends CI_model
         $this->db->select('*');
         $this->db->from('tb_barang');
         $this->db->like('kategori', $keyword);
+        $this->db->where('stok > 0');
         return $this->db->get()->result();
     }
 
@@ -28,6 +35,7 @@ class Model_pencarian extends CI_model
         $this->db->select('*');
         $this->db->from('tb_barang');
         $this->db->like('ukuran', $keyword);
+        $this->db->where('stok > 0');
         return $this->db->get()->result();
     }
 
@@ -36,6 +44,7 @@ class Model_pencarian extends CI_model
         $this->db->select('*');
         $this->db->from('tb_barang');
         $this->db->like('jenis', $keyword);
+        $this->db->where('stok > 0');
         return $this->db->get()->result();
     }
 }

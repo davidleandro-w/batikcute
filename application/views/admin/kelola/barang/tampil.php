@@ -1,6 +1,8 @@
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800 font-weight-bold"><i class="fas fa-fw fa-boxes"></i> Daftar Produk Batikcute</h1>
     <p class="mb-3">Daftar produk yang tersedia pada Batikcute</p>
+    <hr>
+    <p>Pilih tombol salah satu tombol dibawah ini untuk menampilkan produk dalam kategori/jenis tertentu.</p>
     <a href="<?php echo site_url('admin/kelola/barang_tampil/all') ?>" class="btn btn-danger btn-icon-split btn mb-3">
         <span class="icon text-white-50">
             <i class="fas fa-tasks"></i>
@@ -56,6 +58,7 @@
                             <th>Harga</th>
                             <th>Stok</th>
                             <th>Foto</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -72,7 +75,11 @@
                                     <td class="text-center"><?php echo $a->modal ?></td>
                                     <td class="text-center"><?php echo $a->harga ?></td>
                                     <td class="text-center"><?php echo $a->stok ?></td>
-                                    <td class="text-center"><?php echo $a->gambar ?></td>
+                                    <td class="text-center"><img src="<?php echo base_url() . '/assets/img/produk/' . $a->gambar ?>" class="rounded card-img-top"></td>
+                                    <td class="text-center">
+                                        <a href="<?php echo site_url('admin/kelola/barang_ubah/' . $a->id_brg) ?>" class="btn btn-sm btn-primary mb-1" data-placement="top" title="Ubah data"><i class="fas fa-edit"></i></a>
+                                        <a href="<?php echo site_url('admin/kelola/barang_hapus/' . $a->id_brg) ?>" class="btn btn-sm btn-danger" data-placement="top" title="Hapus Produk"><i class="fas fa-trash-alt"></i></a>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>

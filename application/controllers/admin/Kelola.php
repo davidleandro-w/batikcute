@@ -21,6 +21,12 @@ class Kelola extends CI_Controller
         $this->load->view('admin/templates/footer');
     }
 
+    function user_hapus($id)
+    {
+        $this->model_kelola->user_hapus($id);
+        redirect('admin/kelola/user_tampil');
+    }
+
     function barang_tampil($tag)
     {
         if ($tag == "all") {
@@ -28,9 +34,167 @@ class Kelola extends CI_Controller
         } else {
             $data['barang'] = $this->model_kelola->barang_tampil($tag);
         }
+        $data['tag'] = $tag;
         $this->load->view('admin/templates/header');
         $this->load->view('admin/templates/sidebar');
         $this->load->view('admin/kelola/barang/tampil', $data);
         $this->load->view('admin/templates/footer');
+    }
+
+    function barang_hapus($id_brg)
+    {
+        $this->model_kelola->barang_hapus($id_brg);
+        redirect('admin/kelola/barang_tampil/all');
+    }
+
+    function barang_tambah()
+    {
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('nama_brg', 'Nama Brg', 'required|max_length[120]');
+        $this->form_validation->set_rules('keterangan', 'Keterangan', 'required|max_length[225]');
+        $this->form_validation->set_rules('kategori', 'Kategori', 'required|max_length[60]');
+        $this->form_validation->set_rules('jenis', 'Jenis', 'required|max_length[30]');
+        $this->form_validation->set_rules('ukuran', 'Ukuran', 'required|max_length[20]');
+        $this->form_validation->set_rules('modal', 'Modal', 'required|integer');
+        $this->form_validation->set_rules('harga', 'Harga', 'required|integer');
+        $this->form_validation->set_rules('stok', 'Stok', 'required|integer');
+
+        if ($this->form_validation->run()) {
+            $foto = $_FILES['foto'];
+            if ($foto = '') {
+                $foto = 'default.jpg';
+            } else {
+                $config['upload_path'] = './assets/img/produk/';
+                $config['allowed_types'] = 'jpg|png|gif';
+
+                $this->load->library('upload', $config);
+                if (!$this->upload->do_upload('foto')) {
+                    $foto = 'default.jpg';
+                } else {
+                    $foto = $this->upload->data('file_name');
+                }
+            }
+            $params = array(
+                'kategori' => $this->input->post('kategori'),
+                'jenis' => $this->input->post('jenis'),
+                'ukuran' => $this->input->post('ukuran'),
+                'nama_brg' => $this->input->post('nama_brg'),
+                'keterangan' => $this->input->post('keterangan'),
+                'modal' => $this->input->post('modal'),
+                'harga' => $this->input->post('harga'),
+                'stok' => $this->input->post('stok'),
+                'gambar' => $foto,
+            );
+            $this->model_kelola->add_tb_barang($params);
+            redirect('admin/kelola/barang_tampil/all');
+        } else {
+            $data['_view'] = 'tb_barang/add';
+            $this->load->view('admin/templates/header');
+            $this->load->view('admin/templates/sidebar');
+            $this->load->view('admin/kelola/barang/add', $data);
+            $this->load->view('admin/templates/footer');
+        }
+    }
+
+    function user_ubah($id)
+    {
+        // check if the tb_user exists before trying to edit it
+        $data['tb_user'] = $this->model_kelola->get_tb_user($id);
+
+        if (isset($data['tb_user']['id'])) {
+            $this->form_validation->set_rules('password', 'Password', 'required|max_length[50]');
+            $this->form_validation->set_rules('nama_dpn', 'Nama Dpn', 'required|max_length[50]');
+            $this->form_validation->set_rules('nama_blkng', 'Nama Blkng', 'required|max_length[50]');
+            $this->form_validation->set_rules('email', 'Email', 'required|max_length[50]|valid_email');
+
+            if ($this->form_validation->run()) {
+                $foto = $_FILES['foto'];
+                if ($foto = '') {
+                    $foto = $data['tb_user']['foto'];
+                } else {
+                    $config['upload_path'] = './assets/img/user/';
+                    $config['allowed_types'] = 'jpg|png|gif';
+
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('foto')) {
+                        $foto = $data['tb_user']['foto'];
+                    } else {
+                        $foto = $this->upload->data('file_name');
+                    }
+                }
+
+                $params = array(
+                    'password' => $this->input->post('password'),
+                    'nama_dpn' => $this->input->post('nama_dpn'),
+                    'nama_blkng' => $this->input->post('nama_blkng'),
+                    'email' => $this->input->post('email'),
+                    'foto' => $foto,
+                );
+                $this->model_kelola->update_tb_user($id, $params);
+                redirect('admin/kelola/user_tampil');
+            } else {
+                $data['_view'] = 'tb_user/edit';
+                $this->load->view('admin/templates/header');
+                $this->load->view('admin/templates/sidebar');
+                $this->load->view('admin/kelola/user/ubah', $data);
+                $this->load->view('admin/templates/footer');
+            }
+        } else
+            show_error('The tb_user you are trying to edit does not exist.');
+    }
+
+    function barang_ubah($id)
+    {
+        // check if the tb_user exists before trying to edit it
+        $data['tb_barang'] = $this->model_kelola->get_tb_barang($id);
+
+        if (isset($data['tb_barang']['id_brg'])) {
+            $this->form_validation->set_rules('nama_brg', 'Nama Brg', 'required|max_length[120]');
+            $this->form_validation->set_rules('keterangan', 'Keterangan', 'required|max_length[225]');
+            $this->form_validation->set_rules('kategori', 'Kategori', 'required|max_length[60]');
+            $this->form_validation->set_rules('jenis', 'Jenis', 'required|max_length[30]');
+            $this->form_validation->set_rules('ukuran', 'Ukuran', 'required|max_length[20]');
+            $this->form_validation->set_rules('modal', 'Modal', 'required|integer');
+            $this->form_validation->set_rules('harga', 'Harga', 'required|integer');
+
+            if ($this->form_validation->run()) {
+                $foto = $_FILES['foto'];
+                if ($foto = '') {
+                    $foto = $data['tb_barang']['gambar'];
+                } else {
+                    $config['upload_path'] = './assets/img/produk/';
+                    $config['allowed_types'] = 'jpg|png|gif';
+
+                    $this->load->library('upload', $config);
+                    if (!$this->upload->do_upload('foto')) {
+                        $foto = $data['tb_barang']['gambar'];
+                    } else {
+                        $foto = $this->upload->data('file_name');
+                    }
+                }
+
+                $params = array(
+                    'kategori' => $this->input->post('kategori'),
+                    'jenis' => $this->input->post('jenis'),
+                    'ukuran' => $this->input->post('ukuran'),
+                    'nama_brg' => $this->input->post('nama_brg'),
+                    'keterangan' => $this->input->post('keterangan'),
+                    'modal' => $this->input->post('modal'),
+                    'harga' => $this->input->post('harga'),
+                    'stok' => $this->input->post('stok'),
+                    'gambar' => $foto,
+                );
+                $this->model_kelola->update_tb_barang($id, $params);
+                redirect('admin/kelola/barang_tampil/all');
+            } else {
+                $data['_view'] = 'tb_barang/edit';
+                $this->load->view('admin/templates/header');
+                $this->load->view('admin/templates/sidebar');
+                $this->load->view('admin/kelola/barang/ubah', $data);
+                $this->load->view('admin/templates/footer');
+            }
+        } else
+            show_error('The tb_user you are trying to edit does not exist.');
     }
 }

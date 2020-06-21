@@ -16,6 +16,11 @@ class Model_kelola extends CI_Model
         }
     }
 
+    function user_hapus($id)
+    {
+        return $this->db->delete('tb_user', array('id' => $id));
+    }
+
     function barang_tampil($tag)
     {
         if ($tag == "all") {
@@ -37,5 +42,38 @@ class Model_kelola extends CI_Model
         } else {
             return false;
         }
+    }
+
+    function barang_hapus($id_brg)
+    {
+        return $this->db->delete('tb_barang', array('id_brg' => $id_brg));
+    }
+
+    function add_tb_barang($params)
+    {
+        $this->db->insert('tb_barang', $params);
+        return $this->db->insert_id();
+    }
+
+    function get_tb_user($id)
+    {
+        return $this->db->get_where('tb_user', array('id' => $id))->row_array();
+    }
+
+    function update_tb_user($id, $params)
+    {
+        $this->db->where('id', $id);
+        return $this->db->update('tb_user', $params);
+    }
+
+    function get_tb_barang($id)
+    {
+        return $this->db->get_where('tb_barang', array('id_brg' => $id))->row_array();
+    }
+
+    function update_tb_barang($id, $params)
+    {
+        $this->db->where('id_brg', $id);
+        return $this->db->update('tb_barang', $params);
     }
 }

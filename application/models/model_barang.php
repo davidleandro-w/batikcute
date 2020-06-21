@@ -5,7 +5,17 @@ class Model_barang extends CI_model
 
     public function tampil_data()
     {
-        return $this->db->where_not_in('stok', '0')->get('tb_barang');
+        $sql = 'SELECT *
+                        FROM tb_barang                                                
+                        WHERE stok > 0';
+
+        $result = $this->db->query($sql);
+        if ($result->num_rows() > 0) {
+            return $result;
+        } else {
+            return false;
+        }
+        //return $this->db->where_not_in('stok', '0')->get('tb_barang');
     }
 
     public function find($id)

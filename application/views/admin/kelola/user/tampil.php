@@ -26,7 +26,10 @@
                                     <td class="text-center"><?php echo $a->nama_dpn ?></td>
                                     <td class="text-center"><?php echo $a->nama_blkng ?></td>
                                     <td class="text-center"><?php echo $a->email ?></td>
-                                    <td class="text-center"><?php ?></td>
+                                    <td class="text-center">
+                                        <a href="<?php echo site_url('admin/kelola/user_ubah/' . $a->id) ?>" class="btn btn-sm btn-primary" data-placement="top" title="Ubah data"><i class="fas fa-edit"></i></a>
+                                        <a href="<?php echo site_url('admin/kelola/user_hapus/' . $a->id) ?>" class="btn btn-sm btn-danger" data-placement="top" title="Hapus Pengguna"><i class="fas fa-trash-alt"></i></a>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
@@ -60,7 +63,10 @@
                                     <td class="text-center"><?php echo $a->nama_dpn ?></td>
                                     <td class="text-center"><?php echo $a->nama_blkng ?></td>
                                     <td class="text-center"><?php echo $a->email ?></td>
-                                    <td class="text-center"><?php ?></td>
+                                    <td class="text-center">
+                                        <a href="<?php echo site_url('admin/kelola/user_ubah/' . $a->id) ?>" class="btn btn-sm btn-primary" data-placement="top" title="Ubah data"><i class="fas fa-edit"></i></a>
+                                        <a href="<?php echo site_url('admin/kelola/user_hapus/' . $a->id) ?>" class="btn btn-sm btn-danger" data-placement="top" title="Hapus pengguna"><i class="fas fa-trash-alt"></i></a>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>

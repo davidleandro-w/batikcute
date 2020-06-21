@@ -56,7 +56,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header text-dark">Aksi</h6>
             <a class="collapse-item" href="<?php echo site_url('admin/kelola/barang_tampil/all') ?>"><i class="fas fa-fw fa-list"></i> Tampilkan</a>
-            <a class="collapse-item" href="<?php echo site_url('admin/kelola/barang/tambah') ?>"><i class="fas fa-fw fa-plus"></i> Tambah</a>
+            <a class="collapse-item" href="<?php echo site_url('admin/kelola/barang_tambah') ?>"><i class="fas fa-fw fa-plus"></i> Tambah</a>
           </div>
         </div>
       </li>

@@ -50,14 +50,14 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Harus Dikemas</div>
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Harus Dikirim</div>
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
                                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $data3->total ?></div>
                                 </div>
                                 <div class="col">
                                     <div class="progress progress-sm mr-2">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo $data3->total ?>%" aria-valuenow="<?php echo $data3->total ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo $data3->total . "%" ?>" aria-valuenow="<?php echo $data3->total ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +79,9 @@
                             <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Stok Habis</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $data4->total ?></div>
                         </div>
-                        <div class="col-auto">
+
+                        <a href="" class="btn btn-sm btn-secondary">Kelola</a>
+                        <div class="col-auto ml-2">
                             <i class="fas fa-thermometer-empty fa-2x text-gray-300"></i>
                         </div>
                     </div>
