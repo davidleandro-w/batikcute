@@ -27,6 +27,50 @@ class Kelola extends CI_Controller
         redirect('admin/kelola/user_tampil');
     }
 
+    function user_tambah()
+    {
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('role_id', 'Role Id', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required|max_length[50]');
+        $this->form_validation->set_rules('nama_dpn', 'Nama Dpn', 'required|max_length[50]');
+        $this->form_validation->set_rules('nama_blkng', 'Nama Blkng', 'required|max_length[50]');
+        $this->form_validation->set_rules('email', 'Email', 'required|max_length[50]|valid_email');
+
+        if ($this->form_validation->run()) {
+            $foto = $_FILES['foto'];
+            if ($foto = '') {
+                $foto = 'default.jpg';
+            } else {
+                $config['upload_path'] = './assets/img/produk/';
+                $config['allowed_types'] = 'jpg|png|gif';
+
+                $this->load->library('upload', $config);
+                if (!$this->upload->do_upload('foto')) {
+                    $foto = 'default.jpg';
+                } else {
+                    $foto = $this->upload->data('file_name');
+                }
+            }
+            $params = array(
+                'role_id' => $this->input->post('role_id'),
+                'password' => $this->input->post('password'),
+                'nama_dpn' => $this->input->post('nama_dpn'),
+                'nama_blkng' => $this->input->post('nama_blkng'),
+                'email' => $this->input->post('email'),
+                'foto' => $foto,
+            );
+            $this->model_kelola->add_tb_user($params);
+            redirect('admin/kelola/user_tampil');
+        } else {
+            $data['_view'] = 'user/add';
+            $this->load->view('admin/templates/header');
+            $this->load->view('admin/templates/sidebar');
+            $this->load->view('admin/kelola/user/add', $data);
+            $this->load->view('admin/templates/footer');
+        }
+    }
+
     function barang_tampil($tag)
     {
         if ($tag == "all") {
@@ -99,7 +143,6 @@ class Kelola extends CI_Controller
 
     function user_ubah($id)
     {
-        // check if the tb_user exists before trying to edit it
         $data['tb_user'] = $this->model_kelola->get_tb_user($id);
 
         if (isset($data['tb_user']['id'])) {
@@ -146,7 +189,6 @@ class Kelola extends CI_Controller
 
     function barang_ubah($id)
     {
-        // check if the tb_user exists before trying to edit it
         $data['tb_barang'] = $this->model_kelola->get_tb_barang($id);
 
         if (isset($data['tb_barang']['id_brg'])) {
@@ -196,5 +238,49 @@ class Kelola extends CI_Controller
             }
         } else
             show_error('The tb_user you are trying to edit does not exist.');
+    }
+
+    function stok_tampil()
+    {
+        $data['barang'] = $this->model_kelola->stok_tampil('all');
+        $data['habis'] = $this->model_kelola->stok_tampil('habis');
+        $this->load->view('admin/templates/header');
+        $this->load->view('admin/templates/sidebar');
+        $this->load->view('admin/kelola/barang/stok', $data);
+        $this->load->view('admin/templates/footer');
+    }
+
+    function stok_tambah($id)
+    {
+        $data['barang'] = $this->model_kelola->stok_pilih($id);
+
+        $this->form_validation->set_rules('stok', 'Stok', 'required|integer');
+        if ($this->form_validation->run()) {
+            $params = $this->input->post('stok');
+            $this->model_kelola->stok_tambah($id, $params);
+            redirect('admin/kelola/stok_tampil');
+        } else {
+            $this->load->view('admin/templates/header');
+            $this->load->view('admin/templates/sidebar');
+            $this->load->view('admin/kelola/barang/tambah_stok', $data);
+            $this->load->view('admin/templates/footer');
+        }
+    }
+
+    function stok_sync($id)
+    {
+        $data['barang'] = $this->model_kelola->stok_pilih($id);
+
+        $this->form_validation->set_rules('stok', 'Stok', 'required|integer');
+        if ($this->form_validation->run()) {
+            $params = $this->input->post('stok');
+            $this->model_kelola->stok_sync($id, $params);
+            redirect('admin/kelola/stok_tampil');
+        } else {
+            $this->load->view('admin/templates/header');
+            $this->load->view('admin/templates/sidebar');
+            $this->load->view('admin/kelola/barang/sesuaikan_stok', $data);
+            $this->load->view('admin/templates/footer');
+        }
     }
 }

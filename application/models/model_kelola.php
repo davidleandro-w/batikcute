@@ -21,6 +21,12 @@ class Model_kelola extends CI_Model
         return $this->db->delete('tb_user', array('id' => $id));
     }
 
+    function add_tb_user($params)
+    {
+        $this->db->insert('tb_user', $params);
+        return $this->db->insert_id();
+    }
+
     function barang_tampil($tag)
     {
         if ($tag == "all") {
@@ -75,5 +81,45 @@ class Model_kelola extends CI_Model
     {
         $this->db->where('id_brg', $id);
         return $this->db->update('tb_barang', $params);
+    }
+
+    function stok_tampil($status)
+    {
+        if ($status == "habis") {
+            $sql = "SELECT *
+            FROM tb_barang
+            WHERE stok <= 0";
+        } else {
+            $sql = "SELECT *
+            FROM tb_barang
+            WHERE stok > 0";
+        }
+        $result = $this->db->query($sql);
+        return $result->result();
+    }
+
+    function stok_pilih($id)
+    {
+        $sql = "SELECT *
+        FROM tb_barang
+        WHERE id_brg = $id";
+        $result = $this->db->query($sql);
+        return $result->row();
+    }
+
+    function stok_tambah($id, $jmlh)
+    {
+        $sql = "UPDATE tb_barang
+                SET stok = stok + $jmlh
+                WHERE id_brg= $id";
+        $this->db->query($sql);
+    }
+
+    function stok_sync($id, $jmlh)
+    {
+        $sql = "UPDATE tb_barang
+                SET stok = $jmlh
+                WHERE id_brg= $id";
+        $this->db->query($sql);
     }
 }

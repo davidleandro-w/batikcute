@@ -80,7 +80,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $data4->total ?></div>
                         </div>
 
-                        <a href="" class="btn btn-sm btn-secondary">Kelola</a>
+                        <a href="<?php echo site_url('admin/kelola/stok_tampil') ?>" class="btn btn-sm btn-secondary">Kelola</a>
                         <div class="col-auto ml-2">
                             <i class="fas fa-thermometer-empty fa-2x text-gray-300"></i>
                         </div>
