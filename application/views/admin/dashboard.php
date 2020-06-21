@@ -4,7 +4,7 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800 font-weight-bold"><i class="fas fa-tachometer-alt"></i> Dashboard dan Laporan</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-danger shadow-sm"><i class="fas fa-file-pdf fa-sm text-white-50"></i> Cetak PDF</a>
+        <a href="<?php echo site_url('admin/dashboard/pdf') ?>" class="d-none d-sm-inline-block btn btn-danger shadow-sm"><i class="fas fa-file-pdf fa-sm text-white-50"></i> Download PDF</a>
     </div>
 
     <!-- Content Row -->
@@ -308,12 +308,11 @@
                                             <td><?php echo $d->email ?></td>
                                             <td class="text-center"><?php echo $d->transaksi ?></td>
                                             <td>Rp <?php echo number_format($d->uang, 2, ',', '.') ?></td>
-                                            <!--
-                                        <td class="text-center"><?php echo anchor(
-                                                                    'invoice/detail/' . $inv->id,
-                                                                    '<div class="btn btn-sm btn-primary">Detail</div>'
-                                                                ) ?></td>
-                                                                -->
+                                            <td class="text-center"><?php echo anchor(
+                                                                        '' . $d->id,
+                                                                        '<div class="btn btn-sm btn-primary">Beri Kupon</div>'
+                                                                    ) ?></td>
+
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php endif; ?>

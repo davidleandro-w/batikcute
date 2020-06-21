@@ -27,4 +27,26 @@ class Dashboard extends CI_Controller
         $this->load->view('admin/dashboard', $total);
         $this->load->view('admin/templates/footer');
     }
+
+    function pdf()
+    {
+        $this->load->library('dompdf_gen');
+        $data['invoice'] = $this->model_laporan->invoice();
+        $data['pesanan'] = $this->model_laporan->pesanan();
+        $data['stok'] = $this->model_laporan->stok();
+        $data['pendapatan'] = $this->model_laporan->pendapatan();
+        $data['keuntungan'] = $this->model_laporan->keuntungan();
+        $data['barang'] = $this->model_laporan->barang();
+        $data['transaksi'] = $this->model_laporan->transaksi();
+        $this->load->view('admin/laporan_pdf', $data);
+
+        $paper_size = 'A4';
+        $orientation = 'portrait';
+        $html = $this->output->get_output();
+        $this->dompdf->set_paper($paper_size, $orientation);
+
+        $this->dompdf->load_html($html);
+        $this->dompdf->render();
+        $this->dompdf->stream("laporan_batikcute.pdf", array('Attachment' => 0));
+    }
 }
