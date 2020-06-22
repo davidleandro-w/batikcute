@@ -40,7 +40,6 @@ class User extends CI_Controller
                     'password' => $this->input->post('password'),
                     'nama_dpn' => $this->input->post('nama_dpn'),
                     'nama_blkng' => $this->input->post('nama_blkng'),
-                    'email' => $this->input->post('email'),
                     'foto' => $foto,
                 );
 
