@@ -292,7 +292,8 @@
                                     <th>ID</th>
                                     <th>Email</th>
                                     <th>Transaksi</th>
-                                    <th>Uang</th>
+                                    <th>Uang Dihabiskan</th>
+                                    <th>Koin Dimiliki</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -308,9 +309,10 @@
                                             <td><?php echo $d->email ?></td>
                                             <td class="text-center"><?php echo $d->transaksi ?></td>
                                             <td>Rp <?php echo number_format($d->uang, 2, ',', '.') ?></td>
+                                            <td class="text-center"><?php echo $d->koin_dimiliki ?></td>
                                             <td class="text-center"><?php echo anchor(
-                                                                        '' . $d->id,
-                                                                        '<div class="btn btn-sm btn-primary">Beri Kupon</div>'
+                                                                        'admin/dashboard/beri_koin/' . $d->id,
+                                                                        '<div class="btn btn-sm btn-warning">Beri 1000 Koin</div>'
                                                                     ) ?></td>
 
                                         </tr>

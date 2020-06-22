@@ -32,6 +32,7 @@
                     <div class="form-group">
                         <label>Pilih Bank Untuk Pembayaran Tagihan</label>
                         <select class="form-control" name="bank" type="text">
+                            <option>Koin Batikcute</option>
                             <option>BCA</option>
                             <option>BRI</option>
                             <option>BNI</option>

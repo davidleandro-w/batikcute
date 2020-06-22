@@ -128,6 +128,7 @@ class Model_admin extends CI_Model
         $sql = 'SELECT 
         tb_user.id as id, 
         tb_user.email as email, 
+        tb_user.koin_dimiliki as koin_dimiliki,
         count(tb_invoice.id) as transaksi, 
         sum(tb_pesanan.harga) as uang
                         FROM tb_user
@@ -136,7 +137,7 @@ class Model_admin extends CI_Model
                         WHERE (DATE_FORMAT(tb_invoice.tgl_pesan, "%Y %M") = DATE_FORMAT(CURRENT_DATE, "%Y %M"))
                         AND (tb_invoice.status = "terbayar" OR tb_invoice.status = "dikirim" OR tb_invoice.status = "selesai")
                         GROUP BY id
-                        ORDER BY id DESC
+                        ORDER BY transaksi DESC
                         LIMIT 3';
 
         $result = $this->db->query($sql);
@@ -169,5 +170,14 @@ class Model_admin extends CI_Model
         } else {
             return false;
         }
+    }
+
+    function beri_koin($id)
+    {
+        $sql = "UPDATE tb_user
+                SET koin_dimiliki = koin_dimiliki + 1000
+                WHERE id = $id";
+
+        $this->db->query($sql);
     }
 }

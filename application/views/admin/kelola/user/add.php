@@ -3,8 +3,9 @@
         <div class="col-md-12">
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Tb User Add</h3>
+                    <h3 class="box-title text-dark font-weight-bold">Menambahkan User</h3>
                 </div>
+                <hr>
                 <?php echo form_open_multipart('admin/kelola/user_tambah'); ?>
                 <div class="box-body">
                     <div class="row clearfix">

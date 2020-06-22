@@ -49,4 +49,10 @@ class Dashboard extends CI_Controller
         $this->dompdf->render();
         $this->dompdf->stream("laporan_batikcute.pdf", array('Attachment' => 0));
     }
+
+    function beri_koin($id)
+    {
+        $this->model_admin->beri_koin($id);
+        redirect('admin/dashboard');
+    }
 }
