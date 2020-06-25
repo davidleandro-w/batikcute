@@ -23,9 +23,10 @@ class User extends CI_Controller
             if ($this->form_validation->run()) {
                 $foto = $_FILES['foto'];
                 if ($foto = '') {
+                    $foto = $data['tb_user']['foto'];
                 } else {
                     $config['upload_path'] = './assets/img/user/';
-                    $config['allowed_types'] = 'jpg|png|gif';
+                    $config['allowed_types'] = 'jpg|jpeg|png|gif';
 
                     $this->load->library('upload', $config);
                     if (!$this->upload->do_upload('foto')) {
@@ -34,7 +35,7 @@ class User extends CI_Controller
                         $foto = $this->upload->data('file_name');
                     }
                 }
-
+                $foto = $this->upload->data('file_name');
                 $params = array(
                     'password' => $this->input->post('password'),
                     'nama_dpn' => $this->input->post('nama_dpn'),
