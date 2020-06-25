@@ -29,8 +29,7 @@ class User extends CI_Controller
 
                     $this->load->library('upload', $config);
                     if (!$this->upload->do_upload('foto')) {
-                        echo "Upload gagal";
-                        die();
+                        $foto = $data['tb_user']['foto'];
                     } else {
                         $foto = $this->upload->data('file_name');
                     }
